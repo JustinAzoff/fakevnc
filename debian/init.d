@@ -121,7 +121,7 @@ case "$1" in
 	start-stop-daemon --stop --quiet --pidfile \
 		/var/run/$NAME.pid --exec $DAEMON
 	[ -n "$DODTIME" ] && sleep $DODTIME
-	start-stop-daemon --start --quiet --pidfile \
+	start-stop-daemon --start --background --chuid fakevnc --quiet --pidfile \
 		/var/run/$NAME.pid --exec $DAEMON -- $DAEMON_OPTS
 	echo "$NAME."
 	;;
