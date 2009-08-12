@@ -1,3 +1,9 @@
+fakevnc (0.3-1) stable; urgency=low
+
+  * change log directory to /var/log/fakevnc
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 12 Aug 2009 14:16:48 -0400
+
 fakevnc (0.2-7) stable; urgency=low
 
   * fix build deps
