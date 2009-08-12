@@ -20,7 +20,8 @@ set -e
 
 case "$1" in
     configure)
-        adduser --quiet --system fakevnc
+        adduser --system --quiet --group --no-create-home fakevnc || :
+        chown -R fakevnc:fakevnc /var/log/fakevnc
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

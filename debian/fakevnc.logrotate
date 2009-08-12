@@ -1,4 +1,4 @@
-/var/log/fakevnc.log {
+/var/log/fakevnc/*.log {
 	weekly
 	rotate 12
 	compress
