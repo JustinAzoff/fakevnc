@@ -6,7 +6,7 @@ setup(name="fakevnc",
     long_description="""
     """,
     download_url="http://github.com/JustinAzoff/fakevnc/tree/master",
-    license='MIT',
+    license='GPL',
     classifiers=[
         "Topic :: System :: Networking",
         "Environment :: Console",
