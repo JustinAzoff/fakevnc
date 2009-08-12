@@ -5,6 +5,20 @@ from twisted.protocols import basic
 import struct
 import datetime
 
+import logging
+
+def setup_logger():
+    x = logging.getLogger("fakevnc")
+    x.setLevel(logging.INFO)
+    h1 = logging.FileHandler("/var/log/fakevnc.log")
+    f = logging.Formatter("%(asctime)s %(message)s")
+    h1.setFormatter(f)
+    h1.setLevel(logging.INFO)
+    x.addHandler(h1)
+    return x
+
+logger = setup_logger()
+
 def pack32(n):
     return struct.pack("!i", n)
 def unpack32(n):
@@ -35,7 +49,7 @@ class VNCProtocol(basic.LineReceiver):
             return
         msg = ["fakevnc: TCP Connection from", "fakevnc: VNC Connection from"][self.got_protocol]
 
-        print datetime.datetime.now(), msg, self.transport.getPeer().host
+        logger.info("%s %s" % (msg, self.transport.getPeer().host))
         self.transport.loseConnection()
 
     def send_32(self, n):
@@ -46,7 +60,7 @@ class VNCProtocol(basic.LineReceiver):
         self.transport.write(s)
 
     def lineReceived(self, line):
-        print 'line:', repr(line)
+        logger.debug("Line: %r" % line)
 
     def go_away(self):
         self.send_32(rfbVncAuthFailed)
@@ -68,7 +82,7 @@ class VNCProtocol(basic.LineReceiver):
         #client sends 1 byte to ack the auth types, and then the 16 byte
         #challenge response
         if self.state == "sent_challenge" and len(bytes) > 6:
-            print datetime.datetime.now(), "fakevnc: VNC Auth attempt from", self.transport.getPeer().host
+            logger.info("fakevnc: VNC Auth attempt from %s" % self.transport.getPeer().host)
             self.go_away() 
 
 class VNCFactory(protocol.ServerFactory):
