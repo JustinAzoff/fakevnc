@@ -11,6 +11,6 @@ XS-Vcs-Browser: http://github.com/JustinAzoff/fakevnc
 
 Package: fakevnc
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-twisted-core, adduser
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python, python-twisted-core, python-setuptools, adduser
 Description: fake VNC server
  fakevnc is a fake VNC server to be used as part of a honeypot
