@@ -88,5 +88,9 @@ class VNCProtocol(basic.LineReceiver):
 class VNCFactory(protocol.ServerFactory):
     protocol = VNCProtocol
 
-reactor.listenTCP(5900, VNCFactory())
-reactor.run()
+def main():
+    reactor.listenTCP(5900, VNCFactory())
+    reactor.run()
+
+if __name__ == "__main__":
+    main()
