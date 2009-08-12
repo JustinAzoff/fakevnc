@@ -139,7 +139,7 @@ stop_server() {
 # if we are using a daemonuser then look for process that match
     start-stop-daemon --stop --quiet --pidfile $PIDFILE \
                 --user $DAEMONUSER \
-                --exec $DAEMON
+                --exec /usr/bin/python
     errcode=$?
 	return $errcode
 }
