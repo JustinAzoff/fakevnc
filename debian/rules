@@ -40,7 +40,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/fakevnc.
-	install -D  -oroot -groot -m755 fakevnc.py $(CURDIR)/usr/sbin/fakevnc
+	install -D  -oroot -groot -m755 fakevnc.py $(CURDIR)/debian/fakevnc/usr/sbin/fakevnc
 
 
 # Build architecture-independent files here.
