@@ -12,6 +12,6 @@ XS-Python-Version: 2.5
 
 Package: fakevnc
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python, python-twisted-core, adduser
+Depends: python, python-twisted-core, adduser
 Description: fake VNC server
  fakevnc is a fake VNC server to be used as part of a honeypot
