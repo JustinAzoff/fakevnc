@@ -106,7 +106,7 @@ running_pid() {
     name=$2
     [ -z "$pid" ] && return 1
     [ ! -d /proc/$pid ] &&  return 1
-    cmd=`cat /proc/$pid/cmdline | tr "\000" "\n"|head -n 1 |cut -d : -f 1`
+    cmd=`cat /proc/$pid/cmdline | tr "\000" "\n"|tail -n 1 |cut -d : -f 1`
     # Is this the expected server
     [ "$cmd" != "$name" ] &&  return 1
     return 0
