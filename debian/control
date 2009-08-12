@@ -7,6 +7,7 @@ Standards-Version: 3.7.3
 Homepage: http://github.com/JustinAzoff/fakevnc
 XS-Vcs-Git: git://github.com/JustinAzoff/fakevnc.git 
 XS-Vcs-Browser: http://github.com/JustinAzoff/fakevnc
+XS-Python-Version: 2.5
 
 
 Package: fakevnc
