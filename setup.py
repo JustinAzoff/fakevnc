@@ -15,9 +15,6 @@ setup(name="fakevnc",
     author="Justin Azoff",
     author_email="JAzoff@uamail.albany.edu",
     py_modules = ["fakevnc"], 
-    install_requires=[
-        "twisted"
-    ],
     entry_points = {
         'console_scripts': [
             'fakevnc   = fakevnc:main',
