@@ -3,8 +3,9 @@ fakevnc (0.2-7) stable; urgency=low
   * fix build deps
   * move this setting to the control file
   * replace cdbs with simple debhelper rules file
+  * fix installation of binary, update bin path 
 
- -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 12 Aug 2009 13:55:23 -0400
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 12 Aug 2009 14:00:52 -0400
 
 fakevnc (0.2-6) stable; urgency=low
 
