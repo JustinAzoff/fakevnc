@@ -1,3 +1,9 @@
+fakevnc (0.2-6) UNRELEASED; urgency=low
+
+  * try to fix egg installation
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 12 Aug 2009 13:34:24 -0400
+
 fakevnc (0.2-5) stable; urgency=low
 
   * use debian dependencies for twisted
