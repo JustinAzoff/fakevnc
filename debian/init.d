@@ -38,9 +38,9 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-DAEMON=/usr/sbin/fakevnc # Introduce the server's location here
+DAEMON=/usr/bin/fakevnc   # Introduce the server's location here
 NAME=fakevnc              # Introduce the short server's name here
-DESC=fake vnc server      # Introduce a short description here
+DESC="fake vnc server"    # Introduce a short description here
 LOGDIR=/var/log # Log directory to use
 
 PIDFILE=/var/run/$NAME.pid
