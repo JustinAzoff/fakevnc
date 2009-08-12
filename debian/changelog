@@ -1,3 +1,9 @@
+fakevnc (0.3-3) stable; urgency=low
+
+  * fix pid checking code to account for python scripts
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 12 Aug 2009 14:25:17 -0400
+
 fakevnc (0.3-2) stable; urgency=low
 
   * create pid file in init script
