@@ -53,7 +53,7 @@ test -x $DAEMON || exit 0
 # at /etc/default/$NAME
 DAEMON_OPTS=""          # Additional options given to the server
 
-DIETIME=10              # Time to wait for the server to die, in seconds
+DIETIME=2              # Time to wait for the server to die, in seconds
                         # If this value is set too low you might not
                         # let some servers to die gracefully and
                         # 'restart' will not work
