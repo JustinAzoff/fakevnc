@@ -12,7 +12,7 @@
 #
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/fakevnc
+DAEMON=/usr/bin/fakevnc
 NAME=fakevnc
 DESC=fakevnc
 
@@ -81,7 +81,7 @@ force_stop() {
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	start-stop-daemon --start --quiet --pidfile $PIDFILE \
+	start-stop-daemon --start --background --chuid fakevnc --quiet --pidfile $PIDFILE \
 		--exec $DAEMON -- $DAEMON_OPTS
         if running ; then
             echo "$NAME."
@@ -104,18 +104,6 @@ case "$1" in
             echo " ERROR."
         fi
 	;;
-  #reload)
-	#
-	#	If the daemon can reload its config files on the fly
-	#	for example by sending it SIGHUP, do it here.
-	#
-	#	If the daemon responds to changes in its config file
-	#	directly anyway, make this a do-nothing entry.
-	#
-	# echo "Reloading $DESC configuration files."
-	# start-stop-daemon --stop --signal 1 --quiet --pidfile \
-	#	/var/run/$NAME.pid --exec $DAEMON
-  #;;
   force-reload)
 	#
 	#	If the "reload" option is implemented, move the "force-reload"
