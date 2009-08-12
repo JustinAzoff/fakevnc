@@ -1,0 +1,19 @@
+This package was debianized by Justin Azoff <JAzoff@uamail.albany.edu> on
+Wed, 12 Aug 2009 12:09:52 -0400.
+
+It was downloaded from <http://github.com/JustinAzoff/fakevnc>
+
+Upstream Author(s):
+
+    Justin Azoff
+
+Copyright:
+
+    <Copyright (C) 2009 Justin Azoff>
+
+License:
+
+    GPL
+
+The Debian packaging is (C) 2009, Justin Azoff <JAzoff@uamail.albany.edu> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.

@@ -1,0 +1,16 @@
+Source: fakevnc
+Section: net
+Priority: extra
+Maintainer: Justin Azoff <JAzoff@uamail.albany.edu>
+Build-Depends: cdbs, debhelper (>= 7)
+Standards-Version: 3.7.3
+Homepage: http://github.com/JustinAzoff/fakevnc
+XS-Vcs-Git: git://github.com/JustinAzoff/fakevnc.git 
+XS-Vcs-Browser: http://github.com/JustinAzoff/fakevnc
+
+
+Package: fakevnc
+Architecture: any
+Depends: ${python:Depends} ${shlibs:Depends}, ${misc:Depends}
+Description: fake VNC server
+ fakevnc is a fake VNC server to be used as part of a honeypot
