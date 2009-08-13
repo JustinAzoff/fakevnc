@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name="fakevnc",
-    version="0.3",
+    version="0.4",
     description="Fake VNC Server",
     long_description="""
     """,
