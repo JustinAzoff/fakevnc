@@ -1,0 +1,84 @@
+#####
+#
+# Copyright (C) 2009 Justin Azoff <JAzoff@uamail.albany.edu>
+# All Rights Reserved
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#####
+
+#LOG:2009-08-13 04:43:51,843 fakevnc: TCP Connection from 77.243.230.131
+regex=fakevnc: TCP Connection from (\S+); \
+ classification.text=Reconnaissance Probe; \
+ id=30000; \
+ revision=1; \
+ analyzer(0).name=fakevnc; \
+ analyzer(0).manufacturer=fakevnc; \
+ analyzer(0).class=Honeypot; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=recon; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=$1 connected to the VNC server; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=5900; \
+ target(0).service.name=fakevnc; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ last;
+
+#LOG:2009-08-13 04:43:49,564 fakevnc: VNC Connection from 77.243.230.131
+regex=fakevnc: VNC Connection from (\S+); \
+ classification.text=User login; \
+ id=30001; \
+ revision=1; \
+ analyzer(0).name=fakevnc; \
+ analyzer(0).manufacturer=fakevnc; \
+ analyzer(0).class=Honeypot; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=recon; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=$1 connected to the VNC server with a VNC client; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=5900; \
+ target(0).service.name=fakevnc; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ last;
+
+#LOG:2009-08-13 04:43:51,843 fakevnc: VNC Auth attempt from 77.243.230.131
+regex=fakevnc: VNC Auth attempt from (\S+); \
+ classification.text=User login; \
+ id=30002; \
+ revision=1; \
+ analyzer(0).name=fakevnc; \
+ analyzer(0).manufacturer=fakevnc; \
+ analyzer(0).class=Honeypot; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=recon; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=$1 tried to authenticate to the VNC server; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=5900; \
+ target(0).service.name=fakevnc; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ last;
+
