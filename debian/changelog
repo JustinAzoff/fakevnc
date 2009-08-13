@@ -1,3 +1,10 @@
+fakevnc (0.4-1) stable; urgency=low
+
+  * new release
+  * include prelude example
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Thu, 13 Aug 2009 09:52:39 -0400
+
 fakevnc (0.3-4) stable; urgency=low
 
   * fix start-stop-daemon stop call
