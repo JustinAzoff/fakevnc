@@ -11,7 +11,7 @@ def setup_logger():
     x = logging.getLogger("fakevnc")
     x.setLevel(logging.INFO)
     h1 = logging.FileHandler("/var/log/fakevnc/fakevnc.log")
-    f = logging.Formatter("%(asctime)s %(message)s")
+    f = logging.Formatter("%(asctime)s %(message)s", datefmt="%b %d %H:%M:%S")
     h1.setFormatter(f)
     h1.setLevel(logging.INFO)
     x.addHandler(h1)
