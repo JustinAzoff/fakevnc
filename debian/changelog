@@ -1,3 +1,9 @@
+fakevnc (0.4-3) stable; urgency=low
+
+  * don't delete the user account on upgrade
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Fri, 14 Aug 2009 10:53:53 -0400
+
 fakevnc (0.4-2) stable; urgency=low
 
   * added prerm script that stops the fakevnc daemon
