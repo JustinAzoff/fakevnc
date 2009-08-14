@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+# fakevnc prerm
+
+case "$1" in
+        upgrade|remove)
+                if [ -x "/etc/init.d/fakevnc" ]; then
+                        if [ -x /usr/sbin/invoke-rc.d ]; then
+                                invoke-rc.d fakevnc stop || true
+                        else
+                                /etc/init.d/fakevnc stop || true
+                        fi
+                fi
+        ;;
+        deconfigure|failed-upgrade)
+        ;;
+        *)
+                echo "prerm called with unknown argument \`$1'" >&2
+                exit 1
+        ;;
+esac
+
+exit 0
