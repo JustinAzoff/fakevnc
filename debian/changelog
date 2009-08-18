@@ -1,3 +1,9 @@
+fakevnc (0.4-4) stable; urgency=low
+
+  * Add a postrotate hook to the logrotate config file 
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Tue, 18 Aug 2009 09:35:20 -0400
+
 fakevnc (0.4-3) stable; urgency=low
 
   * don't delete the user account on upgrade
