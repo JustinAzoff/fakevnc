@@ -1,9 +1,14 @@
 /var/log/fakevnc/*.log {
-	weekly
-	rotate 12
-	compress
-	delaycompress
-	missingok
-	notifempty
-	create 644 fakevnc fakevnc
+    weekly
+    rotate 12
+    postrotate
+        if [ -e /var/run/fakevnc.pid ]; then
+            invoke-rc.d --quiet fakevnc restart > /dev/null
+            sleep 10
+        fi
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 644 fakevnc fakevnc
 }
