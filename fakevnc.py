@@ -34,7 +34,7 @@ CHALLENGESIZE=16
 def random_challenge():
     return open("/dev/urandom").read(CHALLENGESIZE)
 
-class VNCProtocol(basic.LineReceiver):
+class FakeVNCProtocol(basic.LineReceiver):
     def connectionMade(self):
         self.state = "init"
         self.got_protocol = False
@@ -86,12 +86,12 @@ class VNCProtocol(basic.LineReceiver):
             self.factory.logger.info("fakevnc: VNC Auth attempt from %s" % self.transport.getPeer().host)
             self.go_away() 
 
-class VNCFactory(protocol.ServerFactory):
-    protocol = VNCProtocol
+class FakeVNCFactory(protocol.ServerFactory):
+    protocol = FakeVNCProtocol
     logger = setup_logger()
 
 def main():
-    reactor.listenTCP(5900, VNCFactory())
+    reactor.listenTCP(5900, FakeVNCFactory())
     reactor.run()
 
 if __name__ == "__main__":
