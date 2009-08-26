@@ -17,8 +17,6 @@ def setup_logger():
     x.addHandler(h1)
     return x
 
-logger = setup_logger()
-
 def pack32(n):
     return struct.pack("!i", n)
 def unpack32(n):
@@ -52,7 +50,7 @@ class VNCProtocol(basic.LineReceiver):
             return
         msg = ["fakevnc: TCP Connection from", "fakevnc: VNC Connection from"][self.got_protocol]
 
-        logger.info("%s %s" % (msg, self.transport.getPeer().host))
+        self.factory.logger.info("%s %s" % (msg, self.transport.getPeer().host))
         self.transport.loseConnection()
 
     def send_32(self, n):
@@ -63,7 +61,7 @@ class VNCProtocol(basic.LineReceiver):
         self.transport.write(s)
 
     def lineReceived(self, line):
-        logger.debug("Line: %r" % line)
+        self.factory.logger.debug("Line: %r" % line)
 
     def go_away(self):
         self.send_32(rfbVncAuthFailed)
@@ -85,11 +83,12 @@ class VNCProtocol(basic.LineReceiver):
         #client sends 1 byte to ack the auth types, and then the 16 byte
         #challenge response
         if self.state == "sent_challenge" and len(bytes) > 6:
-            logger.info("fakevnc: VNC Auth attempt from %s" % self.transport.getPeer().host)
+            self.factory.logger.info("fakevnc: VNC Auth attempt from %s" % self.transport.getPeer().host)
             self.go_away() 
 
 class VNCFactory(protocol.ServerFactory):
     protocol = VNCProtocol
+    logger = setup_logger()
 
 def main():
     reactor.listenTCP(5900, VNCFactory())
