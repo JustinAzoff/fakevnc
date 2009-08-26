@@ -44,6 +44,9 @@ class VNCProtocol(basic.LineReceiver):
         self.setRawMode()
         reactor.callLater(5, self.do_close)
 
+    def connectionLost(self, reason):
+        self.do_close()
+
     def do_close(self):
         if self.state == "closed":
             return
