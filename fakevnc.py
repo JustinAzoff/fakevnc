@@ -2,20 +2,14 @@
 
 from twisted.internet import protocol, reactor
 from twisted.protocols import basic
+from zope.interface import Interface, implements
+from twisted.python import components
+
 import struct
 import datetime
 
 import logging
 
-def setup_logger():
-    x = logging.getLogger("fakevnc")
-    x.setLevel(logging.INFO)
-    h1 = logging.FileHandler("/var/log/fakevnc/fakevnc.log")
-    f = logging.Formatter("%(asctime)s %(message)s", datefmt="%b %d %H:%M:%S")
-    h1.setFormatter(f)
-    h1.setLevel(logging.INFO)
-    x.addHandler(h1)
-    return x
 
 def pack32(n):
     return struct.pack("!i", n)
@@ -48,10 +42,10 @@ class FakeVNCProtocol(basic.LineReceiver):
     def do_close(self):
         if self.state == "closed":
             return
-        msg = ["fakevnc: TCP Connection from", "fakevnc: VNC Connection from"][self.got_protocol]
-
-        self.factory.logger.info("%s %s" % (msg, self.transport.getPeer().host))
+        func = [self.gotTcpConnection, self.gotVncConnection][self.got_protocol]
+        func()
         self.transport.loseConnection()
+        self.state="closed"
 
     def send_32(self, n):
         self.transport.write(pack32(n))
@@ -83,15 +77,88 @@ class FakeVNCProtocol(basic.LineReceiver):
         #client sends 1 byte to ack the auth types, and then the 16 byte
         #challenge response
         if self.state == "sent_challenge" and len(bytes) > 6:
-            self.factory.logger.info("fakevnc: VNC Auth attempt from %s" % self.transport.getPeer().host)
+            self.gotVncAuthAttempt()
             self.go_away() 
 
-class FakeVNCFactory(protocol.ServerFactory):
+    def gotTcpConnection(self):
+        host = self.transport.getPeer().host
+        self.factory.gotTcpConnection(host)
+    def gotVncConnection(self):
+        host = self.transport.getPeer().host
+        self.factory.gotVncConnection(host)
+    def gotVncAuthAttempt(self):
+        host = self.transport.getPeer().host
+        self.factory.gotVncAuthAttempt(host)
+
+class IFakeVncFactory(Interface):
+
+    def gotTcpConnection(self, host):
+        """log a tcp connection"""
+    def gotVncConnection(self, host):
+        """log a vnc connection"""
+    def gotVncAuthAttempt(self, host):
+        """log a vnc auth attempt"""
+
+    def buildProtocol(addr):
+        """Return a protocol returning a string"""
+
+class IFakeVncBackend(Interface):
+    def gotTcpConnection(self, host):
+        """log a tcp connection"""
+    def gotVncConnection(self, host):
+        """log a vnc connection"""
+    def gotVncAuthAttempt(self, host):
+        """log a vnc auth attempt"""
+
+class FakeVncFactoryFromService(protocol.ServerFactory):
+    implements(IFakeVncFactory)
     protocol = FakeVNCProtocol
-    logger = setup_logger()
+
+    def __init__(self, service):
+        self.service = service
+
+    def gotTcpConnection(self, host):
+        """log a tcp connection"""
+        return self.service.gotTcpConnection(host)
+    def gotVncConnection(self, host):
+        """log a vnc connection"""
+        return self.service.gotVncConnection(host)
+    def gotVncAuthAttempt(self, host):
+        """log a vnc auth attempt"""
+        return self.service.gotVncAuthAttempt(host)
+
+components.registerAdapter(FakeVncFactoryFromService,
+                           IFakeVncBackend,
+                           IFakeVncFactory)
+
+
+class FakeVncLogBackend:
+    implements([IFakeVncBackend])
+
+    def __init__(self, filename):
+        x = logging.getLogger("fakevnc")
+        x.setLevel(logging.INFO)
+        h1 = logging.FileHandler(filename)
+        f = logging.Formatter("%(asctime)s %(message)s", datefmt="%b %d %H:%M:%S")
+        h1.setFormatter(f)
+        h1.setLevel(logging.INFO)
+        x.addHandler(h1)
+        self.logger = x
+
+    def gotTcpConnection(self, host):
+        self.logger.info("fakevnc: TCP Connection from %s" % host)
+    def gotVncConnection(self, host):
+        self.logger.info("fakevnc: VNC Connection from %s" % host)
+    def gotVncAuthAttempt(self, host):
+        self.logger.info("fakevnc: VNC Auth attempt from %s" % host)
 
 def main():
-    reactor.listenTCP(5900, FakeVNCFactory())
+    backend = FakeVncLogBackend("/var/log/fakevnc/fakevnc.log")
+    #application = service.Application('fakevnc')
+    #serviceCollection = service.IServiceCollection(application)
+    #internet.TCPServer(5900, IFakeVncFactory(backend)
+    #               ).setServiceParent(serviceCollection)
+    reactor.listenTCP(5900, IFakeVncFactory(backend))
     reactor.run()
 
 if __name__ == "__main__":
