@@ -1,3 +1,9 @@
+fakevnc (0.5-2) stable; urgency=low
+
+  * logrotate script was missing 'endscript'
+
+ -- Justin Azoff <JAzoff@uamail.albany.edu>  Wed, 02 Sep 2009 09:08:47 -0400
+
 fakevnc (0.5-1) stable; urgency=low
 
   * new release
